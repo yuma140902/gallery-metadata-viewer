@@ -3,7 +3,7 @@ import {convertFileSrc, invoke} from "@tauri-apps/api/tauri";
 import {getMatches} from "@tauri-apps/api/cli";
 import "./App.css";
 import {TwitterImage} from "./type/twitter";
-//import reactLogo from "./assets/react.svg";
+import twitterLogo from "./assets/twitter.svg";
 
 function App() {
   const [file, setFile] = useState("");
@@ -33,10 +33,29 @@ function App() {
 
   return (
     <div className="container">
-      <p>File: {file}</p>
-      <p>{file && <img src={convertFileSrc(file)} />}</p>
-      <p>metadata: {metadata?.content}</p>
-
+      <article className="tweet">
+        <div className="tweet-author">
+          <div className="twitter-user-icon">
+            <img src={metadata?.author.profile_image} />
+          </div>
+          <div className="twitter-user-identifier">
+            <div className="twitter-user-nick">{metadata?.author.nick}</div>
+            <div className="twitter-user-name">@{metadata?.author.name}</div>
+          </div>
+          <div className="twitter-icon">
+            <a href={metadata?.url?.bind(metadata) ?? "https://twitter.com/"}>
+              <img src={twitterLogo} />
+            </a>
+          </div>
+        </div>
+        <div className="tweet-body">
+          <p className="tweet-description">{metadata?.content}</p>
+          {file && <img src={convertFileSrc(file)} className="u-max-full-width" />}
+        </div>
+        <div className="tweet-footer">
+          <div className="tweet-date"><a href={metadata?.url?.bind(metadata) ?? "https://twitter.com/"}>{metadata?.date}</a></div>
+        </div>
+      </article>
       {/*
       <div>
         <input

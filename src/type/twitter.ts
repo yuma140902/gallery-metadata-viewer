@@ -15,8 +15,13 @@ export class TwitterImage extends ImageMetadata {
   number_in_series(this: TwitterImage): number {
     return this.num;
   }
+
   id(this: TwitterImage): string {
     return this.tweet_id.toString();
+  }
+
+  url(this: TwitterImage): string {
+    return `https://twitter.com/{this.author.name}/status/{this.tweet_id.toString()}`;
   }
 
   author: TwitterAccount;

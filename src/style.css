@@ -1,0 +1,63 @@
+:root {
+  --user-icon-size: 3.5em;
+  --font-gray-color: #898989;
+  --twitter-logo-size: 48px;
+}
+
+.tweet {
+  --radius: 16px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: var(--radius);
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.tweet-author {
+  display: grid;
+  grid-template-columns: calc(var(--user-icon-size) + 1em) 1fr calc(var(--twitter-logo-size));
+}
+
+.twitter-user-icon > img {
+  width: var(--user-icon-size);
+  height: var(--user-icon-size);
+}
+
+.twitter-user-identifier {
+  display: grid;
+  grid-template-rows: 1fr 1em 1em 1fr;
+}
+
+.tiwtter-icon img {
+  width: var(--twitter-logo-size);
+  height: var(--twitter-logo-size);
+}
+
+.twitter-user-nick,
+.twitter-user-name {
+  font-size: 1em;
+  height: 1em;
+  line-height: 1.0;
+}
+
+.twitter-user-nick {
+  grid-row-start: 2;
+  font-weight: bold;
+}
+
+.twitter-user-name {
+  grid-row-start: 3;
+  color: var(--font-gray-color);
+}
+
+.tweet-description {
+  font-size: 16pt;
+}
+
+.tweet-date {
+  color: var(--font-gray-color);
+}
+
+.tweet-date a {
+  color: var(--font-gray-color);
+}
