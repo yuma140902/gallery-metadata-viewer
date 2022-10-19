@@ -10,6 +10,8 @@ import folderIcon from "./assets/fxemoji-filefolder.svg";
 import folderOpenIcon from "./assets/fxemoji-openfilefolder.svg";
 import downArrowIcon from "./assets/fxemoji-downarrow.svg";
 import expandIcon from "./assets/ion-expand.svg";
+import leftArrowIcon from "./assets/ion-arrow-left-b.svg";
+import rightArrowIcon from "./assets/ion-arrow-right-b.svg";
 
 function App() {
   const [file, setFile] = useState("");
@@ -58,7 +60,9 @@ function App() {
   return (
     <div className="prev-next-holder">
       <div className="prev-container">
-        <a href="#" onClick={() => prevFile()}>PREV</a>
+        <a href="#" onClick={() => prevFile()}>
+          <img src={leftArrowIcon} height="40pt" />
+        </a>
       </div>
 
       <article className="tweet container">
@@ -92,9 +96,7 @@ function App() {
           <Scroll.Link to="main-image" smooth={true} duration={100}>
             <img src={downArrowIcon} height="20pt" />
           </Scroll.Link>
-          <div>
-            {file && <img src={convertFileSrc(file)} className="u-max-full-width main-image" id="main-image" />}
-          </div>
+          {file && <img src={convertFileSrc(file)} className="main-image" id="main-image" />}
         </div>
         <div className="tweet-footer">
           <div className="tweet-date">
@@ -104,7 +106,9 @@ function App() {
       </article >
 
       <div className="next-container">
-        <a href="#" onClick={() => nextFile()}>NEXT</a>
+        <a href="#" onClick={() => nextFile()}>
+          <img src={rightArrowIcon} height="40pt" />
+        </a>
       </div>
       {/*
       <div>

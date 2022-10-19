@@ -71,7 +71,9 @@
 
 .main-image {
   display: block;
-  max-height: 100vh;
+  max-height: 90vh;
+  max-width: 100%;
+  object-fit: contain;
   margin-left: auto;
   margin-right: auto;
 }
@@ -83,13 +85,13 @@
 .next-container {
   position: sticky;
   top: calc(50vh - 12px);
-  width: 24px;
-  height: 24px;
+  width: 48px;
+  height: 48px;
 }
 
 .prev-container {
   position: sticky;
   top: calc(50vh - 12px);
-  width: 24px;
-  height: 24px;
+  width: 48px;
+  height: 48px;
 }
