@@ -45,9 +45,23 @@ function App() {
     }
   }, [metadata]);
 
+  async function nextFile() {
+    const next_file: string = await invoke("next_file", {file});
+    setFile(next_file);
+  }
+
+  async function prevFile() {
+    const prev_file: string = await invoke("prev_file", {file});
+    setFile(prev_file);
+  }
+
   return (
-    <div className="container">
-      <article className="tweet">
+    <div className="prev-next-holder">
+      <div className="prev-container">
+        <a href="#" onClick={() => prevFile()}>PREV</a>
+      </div>
+
+      <article className="tweet container">
         <div className="tweet-author">
           <div className="twitter-user-icon">
             <img src={metadata?.author.profile_image} />
@@ -88,6 +102,10 @@ function App() {
           </div>
         </div>
       </article >
+
+      <div className="next-container">
+        <a href="#" onClick={() => nextFile()}>NEXT</a>
+      </div>
       {/*
       <div>
         <input
