@@ -37,6 +37,10 @@ function App() {
 
   return (
     <div className="container">
+      <p>{greetMsg}</p>
+      <p>File: {file}</p>
+      <p>{file && <img src={convertFileSrc(file)} />}</p>
+      <p>metadata: {metadata}</p>
       <h1>Welcome to Tauri!</h1>
 
       <div className="row">
@@ -65,10 +69,6 @@ function App() {
           </button>
         </div>
       </div>
-      <p>{greetMsg}</p>
-      <p>File: {file}</p>
-      <p>{file && <img src={convertFileSrc(file)} />}</p>
-      <p>metadata: {metadata}</p>
     </div>
   );
 }
