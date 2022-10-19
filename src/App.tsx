@@ -50,11 +50,13 @@ function App() {
   async function nextFile() {
     const next_file: string = await invoke("next_file", {file});
     setFile(next_file);
+    Scroll.scroller.scrollTo("description", {smooth: false});
   }
 
   async function prevFile() {
     const prev_file: string = await invoke("prev_file", {file});
     setFile(prev_file);
+    Scroll.scroller.scrollTo("description", {smooth: false});
   }
 
   return (
@@ -83,7 +85,7 @@ function App() {
           </div>
         </div>
         <div className="tweet-body">
-          <p className="tweet-description">{metadata?.content}</p>
+          <p className="tweet-description" id="description">{metadata?.content}</p>
           <a href="#" onClick={() => invoke("open_file", {file})}>
             <img src={expandIcon} height="20pt" />
           </a>
@@ -93,7 +95,7 @@ function App() {
               onMouseLeave={() => setFolderIconHover(false)}
               src={folderIconHover ? folderOpenIcon : folderIcon} height="20pt" />
           </a>
-          <Scroll.Link to="main-image" smooth={true} duration={100}>
+          <Scroll.Link to="description" smooth={true} duration={100}>
             <img src={downArrowIcon} height="20pt" />
           </Scroll.Link>
           {file && <img src={convertFileSrc(file)} className="main-image" id="main-image" />}
