@@ -2,12 +2,13 @@ import {useEffect, useState} from "react";
 import {convertFileSrc, invoke} from "@tauri-apps/api/tauri";
 import {getMatches} from "@tauri-apps/api/cli";
 import "./App.css";
-import {TwitterImage} from "./type/twitter";
+import {tweet_url, TwitterImage} from "./type/twitter";
 import twitterLogo from "./assets/twitter.svg";
 
 function App() {
   const [file, setFile] = useState("");
   const [metadata, setMetadata] = useState<TwitterImage | undefined>(undefined);
+  const [url, setUrl] = useState("https://twitter.com/");
 
   useEffect(() => {
     getMatches().then(matches => {
@@ -31,6 +32,12 @@ function App() {
     })()
   }, [file]);
 
+  useEffect(() => {
+    if (metadata) {
+      setUrl(tweet_url(metadata));
+    }
+  }, [metadata]);
+
   return (
     <div className="container">
       <article className="tweet">
@@ -43,7 +50,7 @@ function App() {
             <div className="twitter-user-name">@{metadata?.author.name}</div>
           </div>
           <div className="twitter-icon">
-            <a href={metadata?.url?.bind(metadata) ?? "https://twitter.com/"}>
+            <a href={url}>
               <img src={twitterLogo} />
             </a>
           </div>
@@ -53,7 +60,7 @@ function App() {
           {file && <img src={convertFileSrc(file)} className="u-max-full-width" />}
         </div>
         <div className="tweet-footer">
-          <div className="tweet-date"><a href={metadata?.url?.bind(metadata) ?? "https://twitter.com/"}>{metadata?.date}</a></div>
+          <div className="tweet-date"><a href={url}>{metadata?.date}</a></div>
         </div>
       </article>
       {/*
