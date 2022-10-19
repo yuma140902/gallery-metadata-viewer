@@ -4,9 +4,11 @@ import {getMatches} from "@tauri-apps/api/cli";
 import "./App.css";
 import {tweet_url, TwitterImage} from "./type/twitter";
 import JSONBig from "json-bigint";
+import * as Scroll from 'react-scroll';
 import twitterLogo from "./assets/twitter.svg";
 import folderIcon from "./assets/fxemoji-filefolder.svg";
 import folderOpenIcon from "./assets/fxemoji-openfilefolder.svg";
+import downArrowIcon from "./assets/fxemoji-downarrow.svg";
 
 function App() {
   const [file, setFile] = useState("");
@@ -69,8 +71,11 @@ function App() {
               onMouseLeave={() => setFolderIconHover(false)}
               src={folderIconHover ? folderOpenIcon : folderIcon} height="20pt" />
           </a>
+          <Scroll.Link to="main-image" smooth={true} duration={100}>
+            <img src={downArrowIcon} height="20pt" />
+          </Scroll.Link>
           <div>
-            {file && <img src={convertFileSrc(file)} className="u-max-full-width main-image" />}
+            {file && <img src={convertFileSrc(file)} className="u-max-full-width main-image" id="main-image" />}
           </div>
         </div>
         <div className="tweet-footer">
