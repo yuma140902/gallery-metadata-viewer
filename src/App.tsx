@@ -69,7 +69,9 @@ function App() {
               onMouseLeave={() => setFolderIconHover(false)}
               src={folderIconHover ? folderOpenIcon : folderIcon} height="20pt" />
           </a>
-          {file && <img src={convertFileSrc(file)} className="u-max-full-width main-image" />}
+          <div>
+            {file && <img src={convertFileSrc(file)} className="u-max-full-width main-image" />}
+          </div>
         </div>
         <div className="tweet-footer">
           <div className="tweet-date">
