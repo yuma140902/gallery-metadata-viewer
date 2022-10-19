@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
-import { getMatches } from "@tauri-apps/api/cli";
+import {convertFileSrc, invoke} from "@tauri-apps/api/tauri";
+import {getMatches} from "@tauri-apps/api/cli";
 import "./App.css";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
+  const [metadata, setMetadata] = useState("");
 
   useEffect(() => {
     getMatches().then(matches => {
@@ -15,7 +16,7 @@ function App() {
       if (matches.args.file) {
         const file = matches.args.file.value;
         console.log("file", file);
-        if(typeof file === "string") {
+        if (typeof file === "string") {
           setFile(file);
         }
       }
@@ -23,12 +24,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("changed file", file);
+    (async () => {
+      console.log("changed file", file);
+      setMetadata(await invoke("get_json", {file}));
+    })()
   }, [file]);
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
+    setGreetMsg(await invoke("greet", {name}));
   }
 
   return (
@@ -63,6 +67,8 @@ function App() {
       </div>
       <p>{greetMsg}</p>
       <p>File: {file}</p>
+      <p>{file && <img src={convertFileSrc(file)} />}</p>
+      <p>metadata: {metadata}</p>
     </div>
   );
 }
