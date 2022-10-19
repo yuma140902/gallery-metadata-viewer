@@ -59,6 +59,7 @@ fn open_file(file: &str) -> Result<(), String> {
 
 #[tauri::command]
 fn next_file(file: &str) -> Result<String, String> {
+    println!("next {}", file);
     let path = PathBuf::from(file);
     let parent = path.parent().ok_or_else(|| "no parent directory")?;
     let next_path = next_file_io(path.as_path(), parent).map_err(|e| format!("{:?}", e))?;

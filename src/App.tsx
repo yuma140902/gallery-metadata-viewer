@@ -12,6 +12,7 @@ import downArrowIcon from "./assets/fxemoji-downarrow.svg";
 import expandIcon from "./assets/ion-expand.svg";
 import leftArrowIcon from "./assets/ion-arrow-left-b.svg";
 import rightArrowIcon from "./assets/ion-arrow-right-b.svg";
+import {useKey} from "react-use";
 
 function App() {
   const [file, setFile] = useState("");
@@ -31,6 +32,9 @@ function App() {
       }
     });
   }, []);
+
+  useKey('ArrowRight', () => (async() => await nextFile())(), {}, [file]);
+  useKey('ArrowLeft', () => (async() => await prevFile())(), {}, [file]);
 
   useEffect(() => {
     (async () => {
