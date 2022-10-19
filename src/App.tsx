@@ -51,7 +51,7 @@ function App() {
             <div className="twitter-user-name">@{metadata?.author.name}</div>
           </div>
           <div className="twitter-icon">
-            <a href={url}>
+            <a href={url} target="_blank">
               <img src={twitterLogo} />
             </a>
           </div>
@@ -61,7 +61,9 @@ function App() {
           {file && <img src={convertFileSrc(file)} className="u-max-full-width" />}
         </div>
         <div className="tweet-footer">
-          <div className="tweet-date"><a href={url}>{metadata?.date}</a></div>
+          <div className="tweet-date">
+            <a href={url} target="_blank">{metadata?.date}</a>
+          </div>
         </div>
       </article>
       {/*
