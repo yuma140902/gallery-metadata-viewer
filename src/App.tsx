@@ -1,11 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
+import { getMatches } from "@tauri-apps/api/cli";
 import "./App.css";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  const [file, setFile] = useState("");
+
+  useEffect(() => {
+    getMatches().then(matches => {
+      console.log(matches);
+      if (matches.args.file) {
+        const file = matches.args.file.value;
+        console.log("file", file);
+        if(typeof file === "string") {
+          setFile(file);
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log("changed file", file);
+  }, [file]);
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -43,6 +62,7 @@ function App() {
         </div>
       </div>
       <p>{greetMsg}</p>
+      <p>File: {file}</p>
     </div>
   );
 }
