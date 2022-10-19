@@ -7,11 +7,6 @@ use std::{borrow::Cow, path::PathBuf};
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
-#[tauri::command]
 fn get_json(file: &str) -> Result<String, String> {
     let path = PathBuf::from(file);
     let path = if path
@@ -44,7 +39,7 @@ fn main() {
             }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet, get_json])
+        .invoke_handler(tauri::generate_handler![get_json])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

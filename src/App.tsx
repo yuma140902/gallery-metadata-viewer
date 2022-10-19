@@ -6,8 +6,6 @@ import {TwitterImage} from "./type/twitter";
 //import reactLogo from "./assets/react.svg";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
   const [file, setFile] = useState("");
   const [metadata, setMetadata] = useState<TwitterImage | undefined>(undefined);
 
@@ -33,14 +31,8 @@ function App() {
     })()
   }, [file]);
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", {name}));
-  }
-
   return (
     <div className="container">
-      <p>{greetMsg}</p>
       <p>File: {file}</p>
       <p>{file && <img src={convertFileSrc(file)} />}</p>
       <p>metadata: {metadata?.content}</p>
