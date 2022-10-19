@@ -9,6 +9,7 @@ import twitterLogo from "./assets/twitter.svg";
 import folderIcon from "./assets/fxemoji-filefolder.svg";
 import folderOpenIcon from "./assets/fxemoji-openfilefolder.svg";
 import downArrowIcon from "./assets/fxemoji-downarrow.svg";
+import expandIcon from "./assets/ion-expand.svg";
 
 function App() {
   const [file, setFile] = useState("");
@@ -65,6 +66,9 @@ function App() {
         </div>
         <div className="tweet-body">
           <p className="tweet-description">{metadata?.content}</p>
+          <a href="#" onClick={() => invoke("open_file", {file})}>
+            <img src={expandIcon} height="20pt" />
+          </a>
           <a href="#" onClick={() => invoke("open_parent_directory", {file})}>
             <img
               onMouseEnter={() => setFolderIconHover(true)}

@@ -47,6 +47,11 @@ fn open_parent_directory(file: &str) -> Result<(), String> {
     Ok(())
 }
 
+#[tauri::command]
+fn open_file(file: &str) -> Result<(), String> {
+    open::that(PathBuf::from(file)).map_err(|e| format!("{:?}", e))
+}
+
 fn main() {
     eprintln!("args: {:?}", std::env::args());
     tauri::Builder::default()
@@ -61,7 +66,11 @@ fn main() {
             }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![get_json, open_parent_directory])
+        .invoke_handler(tauri::generate_handler![
+            get_json,
+            open_parent_directory,
+            open_file,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

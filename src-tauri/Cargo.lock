@@ -764,6 +764,7 @@ dependencies = [
 name = "gallery-metadata-viewer"
 version = "0.0.0"
 dependencies = [
+ "open",
  "serde",
  "serde_json",
  "tauri",
