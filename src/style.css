@@ -50,8 +50,12 @@
   color: var(--font-gray-color);
 }
 
-.tweet-description {
+.tweet-body {
   font-size: 16pt;
+}
+
+.tweet-description {
+  margin-bottom: 0;
 }
 
 .tweet-date {

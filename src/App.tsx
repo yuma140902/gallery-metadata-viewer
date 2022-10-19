@@ -3,13 +3,16 @@ import {convertFileSrc, invoke} from "@tauri-apps/api/tauri";
 import {getMatches} from "@tauri-apps/api/cli";
 import "./App.css";
 import {tweet_url, TwitterImage} from "./type/twitter";
-import twitterLogo from "./assets/twitter.svg";
 import JSONBig from "json-bigint";
+import twitterLogo from "./assets/twitter.svg";
+import folderIcon from "./assets/fxemoji-filefolder.svg";
+import folderOpenIcon from "./assets/fxemoji-openfilefolder.svg";
 
 function App() {
   const [file, setFile] = useState("");
   const [metadata, setMetadata] = useState<TwitterImage | undefined>(undefined);
   const [url, setUrl] = useState("https://twitter.com/");
+  const [folderIconHover, setFolderIconHover] = useState(false);
 
   useEffect(() => {
     getMatches().then(matches => {
@@ -48,7 +51,7 @@ function App() {
           </div>
           <div className="twitter-user-identifier">
             <div className="twitter-user-nick">
-              <a href="#" onClick={() => invoke("open_parent_directory", {file})}>{metadata?.author.nick}</a>
+              {metadata?.author.nick}
             </div>
             <div className="twitter-user-name">@{metadata?.author.name}</div>
           </div>
@@ -60,14 +63,20 @@ function App() {
         </div>
         <div className="tweet-body">
           <p className="tweet-description">{metadata?.content}</p>
-          {file && <img src={convertFileSrc(file)} className="u-max-full-width" />}
+          <a href="#" onClick={() => invoke("open_parent_directory", {file})}>
+            <img
+              onMouseEnter={() => setFolderIconHover(true)}
+              onMouseLeave={() => setFolderIconHover(false)}
+              src={folderIconHover ? folderOpenIcon : folderIcon} height="20pt" />
+          </a>
+          {file && <img src={convertFileSrc(file)} className="u-max-full-width main-image" />}
         </div>
         <div className="tweet-footer">
           <div className="tweet-date">
             <a href={url} target="_blank">{metadata?.date}</a>
           </div>
         </div>
-      </article>
+      </article >
       {/*
       <div>
         <input
@@ -79,7 +88,7 @@ function App() {
           Greet
         </button>
       </div>*/}
-    </div>
+    </div >
   );
 }
 
