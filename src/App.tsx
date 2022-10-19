@@ -4,6 +4,7 @@ import {getMatches} from "@tauri-apps/api/cli";
 import "./App.css";
 import {tweet_url, TwitterImage} from "./type/twitter";
 import twitterLogo from "./assets/twitter.svg";
+import JSONBig from "json-bigint";
 
 function App() {
   const [file, setFile] = useState("");
@@ -27,7 +28,7 @@ function App() {
     (async () => {
       console.log("changed file", file);
       const metadata_str: string = await invoke("get_json", {file});
-      const metadata = JSON.parse(metadata_str) as TwitterImage;
+      const metadata = JSONBig({storeAsString: true}).parse(metadata_str) as TwitterImage;
       setMetadata(metadata);
     })()
   }, [file]);
