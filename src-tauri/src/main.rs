@@ -4,6 +4,10 @@
 )]
 
 use std::{borrow::Cow, path::PathBuf};
+use windows::{
+    core::PCWSTR,
+    Win32::UI::Shell::{ILCreateFromPathW, SHOpenFolderAndSelectItems},
+};
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -25,6 +29,24 @@ fn get_json(file: &str) -> Result<String, String> {
     }
 }
 
+fn to_wide_chars(s: &str) -> Vec<u16> {
+    use std::ffi::OsStr;
+    use std::os::windows::ffi::OsStrExt;
+    OsStr::new(s)
+        .encode_wide()
+        .chain(Some(0).into_iter())
+        .collect::<Vec<_>>()
+}
+
+#[tauri::command]
+fn open_parent_directory(file: &str) -> Result<(), String> {
+    unsafe {
+        let pidl = ILCreateFromPathW(PCWSTR(to_wide_chars(file).as_ptr()));
+        SHOpenFolderAndSelectItems(pidl, None, 0).map_err(|e| e.message().to_string_lossy())?;
+    }
+    Ok(())
+}
+
 fn main() {
     eprintln!("args: {:?}", std::env::args());
     tauri::Builder::default()
@@ -39,7 +61,7 @@ fn main() {
             }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![get_json])
+        .invoke_handler(tauri::generate_handler![get_json, open_parent_directory])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

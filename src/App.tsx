@@ -47,7 +47,9 @@ function App() {
             <img src={metadata?.author.profile_image} />
           </div>
           <div className="twitter-user-identifier">
-            <div className="twitter-user-nick">{metadata?.author.nick}</div>
+            <div className="twitter-user-nick">
+              <a href="#" onClick={() => invoke("open_parent_directory", {file})}>{metadata?.author.nick}</a>
+            </div>
             <div className="twitter-user-name">@{metadata?.author.name}</div>
           </div>
           <div className="twitter-icon">
